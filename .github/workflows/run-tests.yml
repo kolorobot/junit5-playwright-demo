@@ -1,8 +1,11 @@
 name: Playwright Tests
 
-workflow_dispatch:
-on: [ push ]
-
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      main
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,3 +28,4 @@ jobs:
 
       - name: Run tests
         run: ./gradlew clean test
+  
