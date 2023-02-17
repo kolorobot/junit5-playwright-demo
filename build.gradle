@@ -1,0 +1,57 @@
+buildscript {
+    ext {
+        junitJupiterVersion = '5.9.2'
+        playwrightVersion = '1.30.0'
+        assertJVersion = '3.21.0'
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id("java")
+    id("application")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = "pl.codeleak.demos.playwright.App"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.microsoft.playwright:playwright:${playwrightVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
+    testImplementation "org.assertj:assertj-core:${assertJVersion}"
+}
+
+tasks.register('playwright', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.microsoft.playwright.CLI'
+}
+
+test {
+    useJUnitPlatform {
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+
+        if (tagsInclude) {
+            includeTags = tagsInclude.split(',')
+        }
+        if (tagsExclude) {
+            excludeTags = tagsExclude.split(',')
+        }
+    }
+}
