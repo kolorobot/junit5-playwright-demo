@@ -1,11 +1,11 @@
 name: Playwright Tests
 
-on: 
+on:
   workflow_dispatch:
   push:
     branches:
       main
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,14 +25,14 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-        
-      - name: Playwright Cache (ms-playwright)
+
+      - name: Playwright Cache
         uses: actions/cache@v3
         with:
           path: |
             ~/.cache/ms-playwright
-          key: ${{ runner.os }}-ms-playwright-${{ hashFiles('**/*.gradle*') }}
+          key: ${{ runner.os }}-ms-playwright-${{ hashFiles('**/build.gradle') }}
 
       - name: Run tests
         run: ./gradlew clean test
-  
+
