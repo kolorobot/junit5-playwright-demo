@@ -26,7 +26,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         
-      - name: Cache Browsers
+      - name: Playwright Cache (ms-playwright)
         uses: actions/cache@v3
         with:
           path: |
