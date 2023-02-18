@@ -1,5 +1,6 @@
 buildscript {
     ext {
+        demo = "true"
         junitJupiterVersion = '5.9.2'
         playwrightVersion = '1.30.0'
         assertJVersion = '3.21.0'
